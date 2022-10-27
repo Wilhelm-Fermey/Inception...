@@ -7,17 +7,7 @@ if [ ! -f "/var/www/html/wordpress/index.php" ]; then
 	wp user create $WP_USER $WP_USER_EMAIL --role=author --user_pass=$WP_USER_PASSWORD   --allow-root
 	wp theme install inspiro --activate --allow-root
 
-    # enable redis cache
-    sed -i "40i define( 'WP_REDIS_HOST', '$REDIS_HOST' );"      wp-config.php
-    sed -i "41i define( 'WP_REDIS_PORT', 6379 );"               wp-config.php
-    sed -i "42i define( 'WP_REDIS_TIMEOUT', 1 );"               wp-config.php
-    sed -i "43i define( 'WP_REDIS_READ_TIMEOUT', 1 );"          wp-config.php
-    sed -i "44i define( 'WP_REDIS_DATABASE', 0 );\n"            wp-config.php
-
-    wp plugin install redis-cache --activate --allow-root
     wp plugin update --all --allow-root
-	wp redis enable --allow-root
-
 fi
 
 exec php-fpm7.3 -F
