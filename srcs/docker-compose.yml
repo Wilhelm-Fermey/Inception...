@@ -1,6 +1,7 @@
 version: '3.3'
 services:
     wordpress:
+        image: wordpress:mine
         build:
           context: ./requirements/wordpress/
           args:
@@ -35,6 +36,7 @@ services:
         restart: always
 
     mariadb:
+        image: mariadb:mine
         env_file:
         - ".env"
         build: ./requirements/mariadb/
